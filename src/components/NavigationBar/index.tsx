@@ -12,7 +12,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar has-shadow">
         <div className="container">
           <div className="navbar-brand title my-0">
             <ApplicationBrand />
