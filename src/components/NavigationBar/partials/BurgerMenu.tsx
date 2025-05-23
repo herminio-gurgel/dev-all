@@ -1,9 +1,9 @@
 interface Props {
-  onClick: () => void;
   menuActive: boolean;
+  toogleMenu: () => void;
 }
 
-const BurgerMenu = ({ onClick, menuActive }: Props) => {
+const BurgerMenu = ({ menuActive, toogleMenu }: Props) => {
   return (
     <>
       <a
@@ -11,7 +11,7 @@ const BurgerMenu = ({ onClick, menuActive }: Props) => {
         role="button"
         aria-label="menu"
         aria-expanded="false"
-        onClick={onClick}
+        onClick={toogleMenu}
       >
         <span></span>
         <span></span>
