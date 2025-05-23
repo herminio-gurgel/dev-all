@@ -1,15 +1,9 @@
 import ApplicationBrand from "./partials/ApplicationBrand";
 import BurgerMenu from "./partials/BurgerMenu";
-import Themes from "../../types/Themes";
 import { useState } from "react";
 import NavigationMenu from "./partials/NavigationMenu";
 
-interface Props {
-  theme: Themes;
-  toggleTheme: () => void;
-}
-
-const NavBar = ({ theme, toggleTheme }: Props) => {
+const NavBar = () => {
   const [menuActive, setMenuActive] = useState(false);
 
   const toogleMenu = () => {
@@ -24,11 +18,7 @@ const NavBar = ({ theme, toggleTheme }: Props) => {
             <ApplicationBrand />
             <BurgerMenu menuActive={menuActive} toogleMenu={toogleMenu} />
           </div>
-          <NavigationMenu
-            theme={theme}
-            toggleTheme={toggleTheme}
-            menuActive={menuActive}
-          />
+          <NavigationMenu menuActive={menuActive} />
         </div>
       </nav>
     </>

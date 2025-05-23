@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
-import Themes from "../../../types/Themes";
+import { useState, useEffect } from "react";
 
 const Button = styled.button`
   border: none;
@@ -14,17 +14,25 @@ const NavBarItem = styled.div<{ $isDark: boolean }>`
   }
 `;
 
-interface Props {
-  theme: Themes;
-  toggleTheme: () => void;
-}
+const ThemeToggle = () => {
+  const initialTheme =
+    document.documentElement.getAttribute("data-theme") === "dark";
+  const [isDark, setIsDark] = useState(initialTheme);
 
-const ThemeToggle = ({ theme, toggleTheme }: Props) => {
-  const isDark = theme === "dark";
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDark ? "dark" : "light",
+    );
+  }, [isDark]);
+
+  function handleToggleTheme() {
+    setIsDark((prevState) => !prevState);
+  }
 
   return (
     <NavBarItem $isDark={isDark} className="navbar-item">
-      <Button className="button" onClick={toggleTheme}>
+      <Button className="button" onClick={handleToggleTheme}>
         <FontAwesomeIcon
           className="icon"
           icon={isDark ? faMoon : faSun}
