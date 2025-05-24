@@ -1,5 +1,4 @@
-import ApplicationBrand from "./partials/ApplicationBrand";
-import BurgerMenu from "./partials/BurgerMenu";
+import NavigationBrand from "./partials/NavigationBrand";
 import { useState } from "react";
 import NavigationMenu from "./partials/NavigationMenu";
 
@@ -14,10 +13,7 @@ const NavBar = () => {
     <>
       <nav className="navbar has-shadow">
         <div className="container">
-          <div className="navbar-brand title my-0">
-            <ApplicationBrand />
-            <BurgerMenu menuActive={menuActive} toogleMenu={toogleMenu} />
-          </div>
+          <NavigationBrand menuActive={menuActive} toogleMenu={toogleMenu} />
           <NavigationMenu menuActive={menuActive} />
         </div>
       </nav>
