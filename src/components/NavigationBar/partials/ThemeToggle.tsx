@@ -27,7 +27,7 @@ const ThemeToggle = () => {
   }, [isDark]);
 
   function handleToggleTheme() {
-    setIsDark((prevState) => !prevState);
+    setIsDark(!isDark);
   }
 
   return (
