@@ -15,15 +15,16 @@ const NavBarItem = styled.div<{ $isDark: boolean }>`
 `;
 
 const ThemeToggle = () => {
-  const initialTheme =
-    document.documentElement.getAttribute("data-theme") === "dark";
+  const storedTheme = localStorage.getItem("dev/all-theme");
+  const initialTheme = storedTheme
+    ? storedTheme === "dark"
+    : document.documentElement.getAttribute("data-theme") === "dark";
   const [isDark, setIsDark] = useState(initialTheme);
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      isDark ? "dark" : "light",
-    );
+    const theme = isDark ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("dev/all-theme", theme);
   }, [isDark]);
 
   function handleToggleTheme() {
