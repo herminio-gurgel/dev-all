@@ -1,5 +1,31 @@
+import styled from "styled-components";
 import NavigationLinks from "../partials/NavigationLinks";
 import ThemeToggle from "../partials/ThemeToggle";
+
+const NavbarMenu = styled.div`
+  @media (max-width: 1023px) {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+      max-height 0.3s ease,
+      opacity 0.2s ease,
+      transform 0.2s ease;
+    display: block !important;
+
+    &.is-active {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
 
 interface Props {
   menuActive: boolean;
@@ -7,8 +33,8 @@ interface Props {
 
 const NavigationMenu = ({ menuActive }: Props) => {
   return (
-    <div
-      className={`navbar-menu ${menuActive ? "is-active has-text-right" : ""}`}
+    <NavbarMenu
+      className={`navbar-menu has-text-right py-0 ${menuActive ? "is-active" : ""}`}
     >
       <div className="navbar-start">
         <NavigationLinks />
@@ -16,7 +42,7 @@ const NavigationMenu = ({ menuActive }: Props) => {
       <div className="navbar-end">
         <ThemeToggle />
       </div>
-    </div>
+    </NavbarMenu>
   );
 };
 
