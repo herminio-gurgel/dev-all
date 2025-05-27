@@ -79,3 +79,25 @@ corretamente. No fim, isso era um "detalhe oculto" no desafio e a avaliação qu
 O uso do docker no projeto foi melhorado, na época eu não tinha o conhecimento sobre a especificação do dev container, o que resultou numa extensa documentação sobre como configurar o ambiente que eu utilizava, quando um `npm install` && `npm run dev` já resolveria.
 
 E quanto a documentação, reorganizei tudo em um lugar só, cometi o equívoco de mandar o relato em um arquivo pdf separado do README.md o que causou confusão no avaliador.
+
+### Início do desenvolvimento
+
+#### Estilos
+
+Inverti a ordem do desafio anterior: comecei instalando o Bulma CSS primeiro. Um dos pontos positivos da avaliação anterior foi a responsividade do projeto — e, neste caso, decidi ir além, ampliando o escopo original. Em vez de implementar somente uma barra de pesquisa e a lista de posts, resolvi fazer o site completo. Com isso, pude aproveitar muito mais o uso das classes do Bulma, implementando uma barra de navegação completa, responsiva e com botão de menu para telas menores.
+
+Outro aspecto que decidi trabalhar foi o dark mode. Fazia tempo que eu não usava o Bulma, e nas versões mais recentes ele já oferece uma implementação automática baseada nas preferências do sistema. Isso acabou gerando um problema de contraste com os ícones — que, na verdade, eram imagens — quando exibidos no fundo escuro do dark mode no computador do avaliador. Eu não havia percebido isso antes, pois o meu sistema estava configurado no modo claro.
+
+Para resolver isso, implementei o tema escuro como padrão. Além disso, o usuário agora tem um botão na barra de navegação para alternar entre os modos claro e escuro, com persistência via localStorage, garantindo que o tema usado seja o mesmo da última visita. Também substituí as imagens por ícones do FontAwesome, o que deve resolver qualquer problema de contraste entre temas.
+
+#### Animações
+
+No teste original, falhei por não usar recursos estéticos como animações e feedback visual ao usuário. O Bulma possui muitas classes para controlar animações básicas em componentes, que eu poderia ter utilizado no projeto anterior, mas acabei não explorando — talvez por não enxergar o frontend com esse nível de atenção ainda.
+
+Mesmo com muitas opções prontas, o Bulma deixa a desejar em alguns aspectos. Aproveitei para incrementar um efeito slide-down no menu responsivo, criando uma transição mais suave com o uso do styled-components.
+
+#### Testes
+
+Os testes foram um ponto muito positivo na avaliação original, e resolvi manter o foco neles aqui. Escrevi testes que cobrem desde a renderização básica dos componentes até interações do usuário e verificação de estilos aplicados dinamicamente.
+
+Aqui usei o GitHub Copilot pela primeira vez e fiquei surpreso ao ver como ele estava bem integrado ao projeto. Ele chegou a sugerir testes automaticamente assim que eu importava um componente — mesmo que eu precisasse fazer alguns ajustes nas sugestões para adaptá-las ao meu código.
