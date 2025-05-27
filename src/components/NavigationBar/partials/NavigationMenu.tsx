@@ -36,12 +36,8 @@ const NavigationMenu = ({ menuActive }: Props) => {
     <NavbarMenu
       className={`navbar-menu has-text-right py-0 ${menuActive ? "is-active" : ""}`}
     >
-      <div className="navbar-start">
-        <NavigationLinks />
-      </div>
-      <div className="navbar-end">
-        <ThemeToggle />
-      </div>
+      <NavigationLinks />
+      <ThemeToggle />
     </NavbarMenu>
   );
 };

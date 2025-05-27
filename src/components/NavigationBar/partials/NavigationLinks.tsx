@@ -1,6 +1,6 @@
 const NavigationLinks = () => {
   return (
-    <>
+    <div className="navbar-start">
       <a href="#" className="navbar-item">
         Fontes
       </a>
@@ -10,7 +10,7 @@ const NavigationLinks = () => {
       <a href="#" className="navbar-item">
         RSS
       </a>
-    </>
+    </div>
   );
 };
 

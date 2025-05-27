@@ -32,15 +32,17 @@ const ThemeToggle = () => {
   }
 
   return (
-    <NavBarItem $isDark={isDark} className="navbar-item">
-      <Button className="button" onClick={handleToggleTheme}>
-        <FontAwesomeIcon
-          className="icon"
-          icon={isDark ? faMoon : faSun}
-          style={{ color: isDark ? "#B197FC" : "#FFD43B" }}
-        />
-      </Button>
-    </NavBarItem>
+    <div className="navbar-end">
+      <NavBarItem $isDark={isDark} className="navbar-item">
+        <Button className="button" onClick={handleToggleTheme}>
+          <FontAwesomeIcon
+            className="icon"
+            icon={isDark ? faMoon : faSun}
+            style={{ color: isDark ? "#B197FC" : "#FFD43B" }}
+          />
+        </Button>
+      </NavBarItem>
+    </div>
   );
 };
 
