@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
 import NavigationMenu from "../partials/NavigationMenu";
+import userEvent from "@testing-library/user-event";
 
 describe("NavigationMenu", () => {
   const mockToggleMenu = jest.fn();
@@ -24,5 +25,14 @@ describe("NavigationMenu", () => {
     );
     const navbarMenu = container.querySelector(".navbar-menu");
     expect(navbarMenu).not.toHaveClass("is-active");
+  });
+
+  it("closes the menu when the user clicks outside the menu", async () => {
+    render(<NavigationMenu menuActive={true} toggleMenu={mockToggleMenu} />);
+    const outsideClick = document.createElement("div");
+    outsideClick.textContent = "Click outside";
+    document.body.appendChild(outsideClick);
+    await userEvent.click(outsideClick);
+    expect(mockToggleMenu).toHaveBeenCalledTimes(1);
   });
 });
