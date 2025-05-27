@@ -30,10 +30,10 @@ const NavbarMenu = styled.div`
 
 interface Props {
   menuActive: boolean;
-  toogleMenu: () => void;
+  toggleMenu: () => void;
 }
 
-const NavigationMenu = ({ menuActive, toogleMenu }: Props) => {
+const NavigationMenu = ({ menuActive, toggleMenu }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const NavigationMenu = ({ menuActive, toogleMenu }: Props) => {
         !document.querySelector(".navbar-burger")?.contains(target)
       ) {
         if (menuActive) {
-          toogleMenu();
+          toggleMenu();
         }
       }
     };
@@ -56,7 +56,7 @@ const NavigationMenu = ({ menuActive, toogleMenu }: Props) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [menuActive, toogleMenu]);
+  }, [menuActive, toggleMenu]);
 
   return (
     <NavbarMenu

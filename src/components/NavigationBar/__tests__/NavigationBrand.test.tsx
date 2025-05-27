@@ -10,7 +10,7 @@ describe("NavigationBrand", () => {
   });
 
   it("toggles the menu when burger icon is clicked", async () => {
-    render(<NavigationBrand menuActive={false} toogleMenu={mockToogleMenu} />);
+    render(<NavigationBrand menuActive={false} toggleMenu={mockToogleMenu} />);
     const burgerIcon = screen.getByRole("button", { name: "menu" });
 
     await userEvent.click(burgerIcon);
@@ -19,7 +19,7 @@ describe("NavigationBrand", () => {
   });
 
   it("applies 'is-active' class when menu is active", () => {
-    render(<NavigationBrand menuActive={true} toogleMenu={mockToogleMenu} />);
+    render(<NavigationBrand menuActive={true} toggleMenu={mockToogleMenu} />);
     const burgerIcon = screen.getByRole("button", { name: "menu" });
 
     expect(burgerIcon).toHaveClass("is-active");

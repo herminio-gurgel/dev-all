@@ -1,9 +1,9 @@
 interface Props {
   menuActive: boolean;
-  toogleMenu: () => void;
+  toggleMenu: () => void;
 }
 
-const NavigationBrand = ({ menuActive, toogleMenu }: Props) => {
+const NavigationBrand = ({ menuActive, toggleMenu }: Props) => {
   return (
     <div className="navbar-brand title my-0">
       <a href="" className="navbar-item is-block">
@@ -14,7 +14,7 @@ const NavigationBrand = ({ menuActive, toogleMenu }: Props) => {
         role="button"
         aria-label="menu"
         aria-expanded="false"
-        onClick={toogleMenu}
+        onClick={toggleMenu}
       >
         <span></span>
         <span></span>

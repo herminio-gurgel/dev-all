@@ -5,7 +5,7 @@ import NavigationMenu from "./partials/NavigationMenu";
 const NavBar = () => {
   const [menuActive, setMenuActive] = useState(false);
 
-  const toogleMenu = () => {
+  const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
 
@@ -13,8 +13,8 @@ const NavBar = () => {
     <>
       <nav className="navbar has-shadow">
         <div className="container">
-          <NavigationBrand menuActive={menuActive} toogleMenu={toogleMenu} />
-          <NavigationMenu menuActive={menuActive} toogleMenu={toogleMenu} />
+          <NavigationBrand menuActive={menuActive} toggleMenu={toggleMenu} />
+          <NavigationMenu menuActive={menuActive} toggleMenu={toggleMenu} />
         </div>
       </nav>
     </>
