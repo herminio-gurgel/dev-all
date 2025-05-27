@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import NavigationLinks from "../partials/NavigationLinks";
 import ThemeToggle from "../partials/ThemeToggle";
@@ -29,11 +30,37 @@ const NavbarMenu = styled.div`
 
 interface Props {
   menuActive: boolean;
+  toogleMenu: () => void;
 }
 
-const NavigationMenu = ({ menuActive }: Props) => {
+const NavigationMenu = ({ menuActive, toogleMenu }: Props) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        !document.querySelector(".navbar-burger")?.contains(target)
+      ) {
+        if (menuActive) {
+          toogleMenu();
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuActive, toogleMenu]);
+
   return (
     <NavbarMenu
+      ref={menuRef}
       className={`navbar-menu has-text-right py-0 ${menuActive ? "is-active" : ""}`}
     >
       <NavigationLinks />

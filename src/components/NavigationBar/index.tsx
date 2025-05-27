@@ -14,7 +14,7 @@ const NavBar = () => {
       <nav className="navbar has-shadow">
         <div className="container">
           <NavigationBrand menuActive={menuActive} toogleMenu={toogleMenu} />
-          <NavigationMenu menuActive={menuActive} />
+          <NavigationMenu menuActive={menuActive} toogleMenu={toogleMenu} />
         </div>
       </nav>
     </>
