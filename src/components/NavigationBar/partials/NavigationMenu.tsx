@@ -24,6 +24,14 @@ const NavbarMenu = styled.div`
       max-height: 500px;
       opacity: 1;
       transform: translateY(0);
+
+      [data-theme="light"] & {
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+
+      [data-theme="dark"] & {
+        background-color: rgba(20, 22, 26, 0.95);
+      }
     }
   }
 `;
@@ -63,7 +71,7 @@ const NavigationMenu = ({ menuActive, toggleMenu }: Props) => {
       ref={menuRef}
       className={`navbar-menu has-text-right py-0 ${menuActive ? "is-active" : ""}`}
     >
-      <NavigationLinks />
+      <NavigationLinks menuActive={menuActive} />
       <ThemeToggle />
     </NavbarMenu>
   );
