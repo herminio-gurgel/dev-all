@@ -9,13 +9,15 @@ const StyledPostContent = styled.div`
   max-width: 765px;
   border-radius: 6px;
   padding: 0.5rem 0.5rem 0 0;
+  border: 1px solid;
 
   [data-theme="dark"] & {
     background-color: #2b2b2b;
+    border-color: transparent;
   }
 
   [data-theme="light"] & {
-    border: 1px solid #dbdbdb;
+    border-color: #dbdbdb;
     background-color: white;
   }
 `;
