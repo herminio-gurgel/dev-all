@@ -3,6 +3,7 @@ import { getPosts } from "../../../services/devallApi";
 import { Post } from "../../../types/Post";
 import PostComponent from "./PostComponent";
 import LoadMore from "./LoadMore";
+import SearchBar from "../../Shared/SearchBar";
 
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -43,7 +44,8 @@ const PostList = () => {
   };
 
   return (
-    <>
+    <div className="is-display-flex is-flex-direction-column is-flex-grow-1">
+      <SearchBar />
       {page === 1 && loading
         ? [...Array<Post>(20)].map((_, i) => (
             <PostComponent key={i} isLoading={true} />
@@ -56,7 +58,7 @@ const PostList = () => {
         hasMore={hasMore}
         onClick={handleLoadMore}
       />
-    </>
+    </div>
   );
 };
 
