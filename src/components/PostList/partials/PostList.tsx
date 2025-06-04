@@ -4,6 +4,7 @@ import { Post } from "../../../types/Post";
 import PostComponent from "./PostComponent";
 import LoadMore from "./LoadMore";
 import SearchBar from "../../Shared/SearchBar";
+import BadRequest from "../../Shared/BadRequest";
 
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -11,6 +12,7 @@ const PostList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -29,7 +31,11 @@ const PostList = () => {
           );
         }
       } catch (error) {
-        console.error("Erro ao buscar posts:", error);
+        setError(true);
+        setHasMore(false);
+        if (process.env.NODE_ENV === "development") {
+          console.error("Erro ao buscar fontes:", error);
+        }
       } finally {
         setLoading(false);
       }
@@ -53,13 +59,19 @@ const PostList = () => {
   return (
     <div className="is-display-flex is-flex-direction-column is-flex-grow-1">
       <SearchBar onSearchSubmit={handleSubmit} />
-      {page === 1 && loading
-        ? [...Array<Post>(20)].map((_, i) => (
-            <PostComponent key={i} isLoading={true} />
-          ))
-        : posts.map((post) => (
-            <PostComponent key={post.id} post={post} isLoading={false} />
-          ))}
+
+      {error ? (
+        <BadRequest />
+      ) : page === 1 && loading ? (
+        Array.from({ length: 20 }, (_, i) => (
+          <PostComponent key={i} isLoading={true} />
+        ))
+      ) : (
+        posts.map((post) => (
+          <PostComponent key={post.id} post={post} isLoading={false} />
+        ))
+      )}
+
       <LoadMore
         isLoading={loading}
         hasMore={hasMore}

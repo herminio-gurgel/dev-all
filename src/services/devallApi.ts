@@ -14,7 +14,6 @@ export const getPosts = async (params?: {
     const response = await api.get<Post[]>("/post", { params });
     return response.data;
   } catch (error) {
-    console.error("Error fetching posts:", error);
     throw error;
   }
 };
