@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Source } from "../../../../types/Site";
 import { getSources } from "../../../../services/devallApi";
 import styled from "styled-components";
+import BadRequest from "../../BadRequest";
 
 const StyledSourceList = styled.div`
   ul {
@@ -20,14 +21,19 @@ const StyledSourceList = styled.div`
 const SourceList = () => {
   const [sources, setSources] = useState<Source[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchSources = async () => {
       try {
         const data = await getSources();
         setSources(data);
-      } catch (error) {
-        console.error("Erro ao buscar sources:", error);
+        setError(false);
+      } catch (err) {
+        if (process.env.NODE_ENV === "development") {
+          console.error("Erro ao buscar fontes:", err);
+        }
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -38,21 +44,25 @@ const SourceList = () => {
 
   return (
     <StyledSourceList className={loading ? "is-skeleton" : ""}>
-      <ul>
-        {sources.map((source) => (
-          <li key={source.id}>
-            <a
-              href={source.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="is-block"
-              title={source.name}
-            >
-              {source.name}
-            </a>
-          </li>
-        ))}
-      </ul>
+      {error ? (
+        <BadRequest />
+      ) : (
+        <ul>
+          {sources.map((source) => (
+            <li key={source.id}>
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="is-block"
+                title={source.name}
+              >
+                {source.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </StyledSourceList>
   );
 };

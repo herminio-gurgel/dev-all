@@ -24,7 +24,6 @@ export const getSources = async (params?: { name?: string }) => {
     const response = await api.get<Source[]>("/sources", { params });
     return response.data;
   } catch (error) {
-    console.error("Error fetching sources:", error);
     throw error;
   }
 };
