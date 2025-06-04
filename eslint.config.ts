@@ -55,8 +55,6 @@ export default tseslint.config(
     rules: {
       ...eslintPluginJest.configs.recommended.rules,
     },
-  },
-  {
     extends: [js.configs.recommended, eslintConfigPrettier],
   },
 );
