@@ -7,14 +7,12 @@ import SearchBar from "../../Shared/SearchBar";
 
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (page === 0) return;
-
     const fetchPosts = async () => {
       setLoading(true);
       try {
@@ -39,10 +37,6 @@ const PostList = () => {
 
     void fetchPosts();
   }, [page, searchQuery]);
-
-  useEffect(() => {
-    setPage(1);
-  }, []);
 
   const handleLoadMore = () => {
     setLoading(true);
