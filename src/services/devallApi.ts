@@ -9,7 +9,7 @@ const api = axios.create({
 export const getPosts = async (params?: {
   content?: string;
   page?: number;
-}) => {
+}): Promise<Post[] | null> => {
   try {
     const response = await api.get<Post[]>("/post", { params });
     return response.data;

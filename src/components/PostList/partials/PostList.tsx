@@ -8,6 +8,7 @@ import SearchBar from "../../Shared/SearchBar";
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [page, setPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
 
@@ -17,12 +18,17 @@ const PostList = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const data = await getPosts({ page });
+        const data = await getPosts({
+          page,
+          content: searchQuery || undefined,
+        });
 
-        if (data.length === 0) {
+        if (!data || data.length === 0) {
           setHasMore(false);
         } else {
-          setPosts((prevPosts) => [...prevPosts, ...data]);
+          setPosts((prevPosts) =>
+            page === 1 ? data : [...prevPosts, ...data],
+          );
         }
       } catch (error) {
         console.error("Erro ao buscar posts:", error);
@@ -32,7 +38,7 @@ const PostList = () => {
     };
 
     void fetchPosts();
-  }, [page]);
+  }, [page, searchQuery]);
 
   useEffect(() => {
     setPage(1);
@@ -43,9 +49,16 @@ const PostList = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const handleSubmit = (query: string) => {
+    setSearchQuery(query);
+    setPage(1);
+    setPosts([]);
+    setHasMore(true);
+  };
+
   return (
     <div className="is-display-flex is-flex-direction-column is-flex-grow-1">
-      <SearchBar />
+      <SearchBar onSearchSubmit={handleSubmit} />
       {page === 1 && loading
         ? [...Array<Post>(20)].map((_, i) => (
             <PostComponent key={i} isLoading={true} />
