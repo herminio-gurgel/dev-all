@@ -5,11 +5,17 @@ interface LoadMoreProps {
   isLoading: boolean;
   hasMore: boolean;
   onClick?: () => void;
+  noResults: boolean;
 }
 
-const LoadMore = ({ isLoading, hasMore, onClick }: LoadMoreProps) => {
+const LoadMore = ({
+  isLoading,
+  hasMore,
+  onClick,
+  noResults,
+}: LoadMoreProps) => {
   return (
-    <div>
+    <div className={noResults ? "is-hidden" : ""}>
       <button
         className={`button is-light
           ${isLoading ? "is-loading" : ""}

@@ -13,6 +13,7 @@ const PostList = () => {
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState(false);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,10 +26,14 @@ const PostList = () => {
 
         if (!data || data.length === 0) {
           setHasMore(false);
+          if (page == 1) {
+            setNoResults(!!searchQuery);
+          }
         } else {
           setPosts((prevPosts) =>
             page === 1 ? data : [...prevPosts, ...data],
           );
+          setNoResults(false);
         }
       } catch (error) {
         setError(true);
@@ -58,7 +63,7 @@ const PostList = () => {
 
   return (
     <div className="is-display-flex is-flex-direction-column is-flex-grow-1">
-      <SearchBar onSearchSubmit={handleSubmit} />
+      <SearchBar onSearchSubmit={handleSubmit} noResults={noResults} />
 
       {error ? (
         <BadRequest />
@@ -76,6 +81,7 @@ const PostList = () => {
         isLoading={loading}
         hasMore={hasMore}
         onClick={handleLoadMore}
+        noResults={noResults}
       />
     </div>
   );
