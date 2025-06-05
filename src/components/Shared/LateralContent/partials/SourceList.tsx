@@ -14,6 +14,19 @@ const StyledSourceList = styled.div`
       text-overflow: ellipsis;
       white-space: nowrap;
       display: inline-block;
+
+      [data-theme="dark"] & {
+        color: orange;
+        &:hover {
+          color: #ffd580;
+        }
+      }
+
+      [data-theme="light"] & {
+        &:hover {
+          color: #5c74ff;
+        }
+      }
     }
   }
 `;
