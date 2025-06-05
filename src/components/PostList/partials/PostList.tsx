@@ -63,7 +63,11 @@ const PostList = () => {
 
   return (
     <div className="is-display-flex is-flex-direction-column is-flex-grow-1">
-      <SearchBar onSearchSubmit={handleSubmit} noResults={noResults} />
+      <SearchBar
+        onSearchSubmit={handleSubmit}
+        noResults={noResults}
+        isLoading={loading}
+      />
 
       {error ? (
         <BadRequest />

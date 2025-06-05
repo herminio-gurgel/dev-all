@@ -20,9 +20,14 @@ const StyledInput = styled.input`
 interface SearchBarProps {
   onSearchSubmit: (query: string) => void;
   noResults: boolean;
+  isLoading: boolean;
 }
 
-const SearchBar = ({ onSearchSubmit, noResults }: SearchBarProps) => {
+const SearchBar = ({
+  onSearchSubmit,
+  noResults,
+  isLoading,
+}: SearchBarProps) => {
   const [value, setValue] = useState("");
   const [lastSubmitted, setLastSubmitted] = useState("");
   const [changeTerm, setChangeTerm] = useState(false);
@@ -68,7 +73,9 @@ const SearchBar = ({ onSearchSubmit, noResults }: SearchBarProps) => {
           </button>
         </div>
       </form>
-      <article className={`${noResults ? "" : "is-hidden"} message`}>
+      <article
+        className={`${noResults ? "" : "is-hidden"} ${isLoading ? "is-hidden" : ""} message`}
+      >
         <div
           className="message-body is-display-flex"
           style={{ maxWidth: "765px" }}
