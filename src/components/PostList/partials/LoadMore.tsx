@@ -1,5 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonDigging } from "@fortawesome/free-solid-svg-icons/faPersonDigging";
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  background-color: #ffffff;
+  color: #2e333d;
+  &:hover {
+    background-color: #f0f2f4;
+  }
+`;
 
 interface LoadMoreProps {
   isLoading: boolean;
@@ -16,8 +25,8 @@ const LoadMore = ({
 }: LoadMoreProps) => {
   return (
     <div className={noResults ? "is-hidden" : ""}>
-      <button
-        className={`button is-light
+      <StyledButton
+        className={`button
           ${isLoading ? "is-loading" : ""}
           ${hasMore ? "" : "is-hidden"}
         `}
@@ -25,7 +34,7 @@ const LoadMore = ({
         onClick={onClick}
       >
         Carregar mais
-      </button>
+      </StyledButton>
       <article className={`${hasMore ? "is-hidden" : ""} message`}>
         <div
           className="message-body is-display-flex"
