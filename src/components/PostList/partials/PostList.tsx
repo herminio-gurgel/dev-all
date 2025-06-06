@@ -69,17 +69,15 @@ const PostList = () => {
         isLoading={loading}
       />
 
-      {error ? (
-        <BadRequest />
-      ) : page === 1 && loading ? (
-        Array.from({ length: 20 }, (_, i) => (
-          <PostComponent key={i} isLoading={true} />
-        ))
-      ) : (
-        posts.map((post) => (
-          <PostComponent key={post.id} post={post} isLoading={false} />
-        ))
-      )}
+      <BadRequest error={error} />
+
+      {page === 1 && loading
+        ? Array.from({ length: 20 }, (_, i) => (
+            <PostComponent key={i} isLoading={true} />
+          ))
+        : posts.map((post) => (
+            <PostComponent key={post.id} post={post} isLoading={false} />
+          ))}
 
       <LoadMore
         isLoading={loading}

@@ -55,27 +55,27 @@ const SourceList = () => {
     void fetchSources();
   }, []);
 
+  if (error) {
+    return <BadRequest error={error} />;
+  }
+
   return (
     <StyledSourceList className={loading ? "is-skeleton" : ""}>
-      {error ? (
-        <BadRequest />
-      ) : (
-        <ul>
-          {sources.map((source) => (
-            <li key={source.id}>
-              <a
-                href={source.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="is-block"
-                title={source.name}
-              >
-                {source.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {sources.map((source) => (
+          <li key={source.id}>
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="is-block"
+              title={source.name}
+            >
+              {source.name}
+            </a>
+          </li>
+        ))}
+      </ul>
     </StyledSourceList>
   );
 };
