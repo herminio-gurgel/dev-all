@@ -86,6 +86,7 @@ const PostList = () => {
         hasMore={hasMore}
         onClick={handleLoadMore}
         noResults={noResults}
+        error={error}
       />
     </div>
   );

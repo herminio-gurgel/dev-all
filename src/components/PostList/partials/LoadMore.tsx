@@ -15,6 +15,7 @@ interface LoadMoreProps {
   hasMore: boolean;
   onClick?: () => void;
   noResults: boolean;
+  error: boolean;
 }
 
 const LoadMore = ({
@@ -22,6 +23,7 @@ const LoadMore = ({
   hasMore,
   onClick,
   noResults,
+  error,
 }: LoadMoreProps) => {
   return (
     <div className={noResults ? "is-hidden" : ""}>
@@ -35,7 +37,7 @@ const LoadMore = ({
       >
         Carregar mais
       </StyledButton>
-      <article className={`${hasMore ? "is-hidden" : ""} message`}>
+      <article className={`${hasMore || error ? "is-hidden" : ""} message`}>
         <div
           className="message-body is-display-flex"
           style={{ maxWidth: "765px" }}
