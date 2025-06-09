@@ -4,8 +4,9 @@ import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { Post } from "../../../types/Post";
 import PostIcon from "./PostIcon";
 import PostContent from "./PostContent";
+import BadRequest from "../../Shared/BadRequest";
 
-const StyledPostContent = styled.div`
+const StyledPostTemplate = styled.div`
   max-width: 765px;
   border-radius: 6px;
   padding: 0.5rem 0.5rem 0 0;
@@ -22,14 +23,30 @@ const StyledPostContent = styled.div`
   }
 `;
 
-interface PostContentProps {
+interface PostComponentProps {
   isLoading: boolean;
+  posts?: Post[];
   post?: Post;
+  page?: number;
+  error?: boolean;
 }
 
-const PostComponent = ({ isLoading, post }: PostContentProps) => {
+const LoadingPost = () => {
+  return Array.from({ length: 20 }, (_, i) => (
+    <PostTemplate key={i} isLoading={true} />
+  ));
+};
+
+const LoadedPost = ({ posts }: PostComponentProps) => {
+  if (!posts) return null;
+  return posts.map((post) => (
+    <PostTemplate key={post.id} post={post} isLoading={false} />
+  ));
+};
+
+const PostTemplate = ({ isLoading, post }: PostComponentProps) => {
   return (
-    <StyledPostContent className="my-2">
+    <StyledPostTemplate className="my-2">
       <div className="media">
         <div className="media-left">
           <PostIcon isLoading={isLoading} url={post?.url} />
@@ -46,8 +63,25 @@ const PostComponent = ({ isLoading, post }: PostContentProps) => {
           </button>
         </div>
       </div>
-    </StyledPostContent>
+    </StyledPostTemplate>
   );
+};
+
+const PostComponent = ({
+  error,
+  page,
+  isLoading,
+  posts,
+}: PostComponentProps) => {
+  if (error) {
+    return <BadRequest error={error} />;
+  }
+
+  if (isLoading && page === 1) {
+    return <LoadingPost />;
+  }
+
+  return <LoadedPost posts={posts} isLoading={false} />;
 };
 
 export default PostComponent;

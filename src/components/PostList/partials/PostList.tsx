@@ -4,7 +4,6 @@ import { Post } from "../../../types/Post";
 import PostComponent from "./PostComponent";
 import LoadMore from "./LoadMore";
 import SearchBar from "../../Shared/SearchBar";
-import BadRequest from "../../Shared/BadRequest";
 
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -34,6 +33,7 @@ const PostList = () => {
             page === 1 ? data : [...prevPosts, ...data],
           );
           setNoResults(false);
+          setError(false);
         }
       } catch (error) {
         setError(true);
@@ -69,15 +69,12 @@ const PostList = () => {
         isLoading={loading}
       />
 
-      <BadRequest error={error} />
-
-      {page === 1 && loading
-        ? Array.from({ length: 20 }, (_, i) => (
-            <PostComponent key={i} isLoading={true} />
-          ))
-        : posts.map((post) => (
-            <PostComponent key={post.id} post={post} isLoading={false} />
-          ))}
+      <PostComponent
+        isLoading={loading}
+        error={error}
+        page={page}
+        posts={posts}
+      />
 
       <LoadMore
         isLoading={loading}
