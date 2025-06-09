@@ -11,12 +11,49 @@ const StyledButton = styled.button`
 `;
 
 interface LoadMoreProps {
-  isLoading: boolean;
+  isLoading?: boolean;
   hasMore: boolean;
   onClick?: () => void;
-  noResults: boolean;
-  error: boolean;
+  noResults?: boolean;
+  error?: boolean;
 }
+
+const Button = ({ isLoading, hasMore, onClick }: LoadMoreProps) => {
+  if (hasMore) {
+    return (
+      <StyledButton
+        className={`button
+            ${isLoading ? "is-loading" : ""}
+          `}
+        disabled={isLoading}
+        onClick={onClick}
+      >
+        Carregar mais
+      </StyledButton>
+    );
+  }
+  return null;
+};
+
+const Message = ({ hasMore, error }: LoadMoreProps) => {
+  if (hasMore || error) {
+    return null;
+  }
+  return (
+    <article className={"message"}>
+      <div
+        className="message-body is-display-flex"
+        style={{ maxWidth: "765px" }}
+      >
+        <FontAwesomeIcon
+          className="has-text-centered image is-32x32 pr-5"
+          icon={faPersonDigging}
+        />
+        <p>Você chegou ao fundo do post, não há mais dados para carregar.</p>
+      </div>
+    </article>
+  );
+};
 
 const LoadMore = ({
   isLoading,
@@ -25,30 +62,14 @@ const LoadMore = ({
   noResults,
   error,
 }: LoadMoreProps) => {
+  if (noResults) {
+    return null;
+  }
+
   return (
-    <div className={noResults ? "is-hidden" : ""}>
-      <StyledButton
-        className={`button
-          ${isLoading ? "is-loading" : ""}
-          ${hasMore ? "" : "is-hidden"}
-        `}
-        disabled={isLoading}
-        onClick={onClick}
-      >
-        Carregar mais
-      </StyledButton>
-      <article className={`${hasMore || error ? "is-hidden" : ""} message`}>
-        <div
-          className="message-body is-display-flex"
-          style={{ maxWidth: "765px" }}
-        >
-          <FontAwesomeIcon
-            className="has-text-centered image is-32x32 pr-5"
-            icon={faPersonDigging}
-          />
-          <p>Você chegou ao fundo do post, não há mais dados para carregar.</p>
-        </div>
-      </article>
+    <div>
+      <Button isLoading={isLoading} hasMore={hasMore} onClick={onClick} />
+      <Message hasMore={hasMore} error={error} />
     </div>
   );
 };
