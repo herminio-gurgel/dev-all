@@ -33,3 +33,11 @@ export const getSite = async (id: number) => {
   });
   return response.data;
 };
+
+export const getClick = async (id: number): Promise<void> => {
+  try {
+    await api.get(`/post/${String(id)}/click`);
+  } catch (error) {
+    throw error;
+  }
+};
