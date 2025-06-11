@@ -1,5 +1,7 @@
+import React from "react";
 import { Post } from "../../../types/Post";
 import styled from "styled-components";
+import { getClick } from "../../../services/devallApi";
 
 const Summary = styled.p`
   display: -webkit-box;
@@ -25,34 +27,56 @@ interface PostProps {
   post?: Post;
 }
 
-const PostContent = ({ isLoading, post }: PostProps) => {
+const SkeletonLines = () => {
   return (
-    <StyledMediaContent
-      className={`media-content mb-5 ${isLoading ? "skeleton-lines" : ""}`}
-    >
-      <div>
-        <div className={isLoading ? "is-hidden" : ""}>
-          <a
-            href={post?.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="title is-6 mb-0"
-          >
-            {post?.title}
-          </a>
-          <p className="is-size-7">
-            <a href={post?.site.url} target="_blank" rel="noopener noreferrer">
-              {post?.site.name}
-            </a>{" "}
-            em "{new Date(post?.pubDate ?? "").toLocaleDateString("pt-BR")}"
-          </p>
-          <Summary className="is-size-7">{post?.summary}</Summary>
-        </div>
-      </div>
+    <div className="skeleton-lines">
       <div></div>
       <div></div>
+      <div></div>
+    </div>
+  );
+};
+
+const LoadedPost = ({ post }: { post: Post }) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      void getClick(post.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <StyledMediaContent className="media-content mb-5">
+      <a
+        href={`https://api.devall.com.br/api/v2/post/${String(post.id)}/click`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="title is-6 mb-0"
+        onClick={handleClick}
+      >
+        {post.title}
+      </a>
+      <p className="is-size-7">
+        <a href={post.site.url} target="_blank" rel="noopener noreferrer">
+          {post.site.name}
+        </a>{" "}
+        em "{new Date(post.pubDate).toLocaleDateString("pt-BR")}"
+      </p>
+      <Summary className="is-size-7">{post.summary}</Summary>
     </StyledMediaContent>
   );
+};
+
+const PostContent = ({ isLoading, post }: PostProps) => {
+  if (isLoading) {
+    return <SkeletonLines />;
+  }
+
+  if (post) {
+    return <LoadedPost post={post} />;
+  }
 };
 
 export default PostContent;
