@@ -1,7 +1,6 @@
 import React from "react";
 import { Post } from "../../../types/Post";
 import styled from "styled-components";
-import { getClick } from "../../../services/devallApi";
 
 const Summary = styled.p`
   display: -webkit-box;
@@ -40,11 +39,8 @@ const SkeletonLines = () => {
 const LoadedPost = ({ post }: { post: Post }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    try {
-      void getClick(post.id);
-    } catch (error) {
-      console.log(error);
-    }
+    if (!post.id) return;
+    window.location.href = `http://localhost:3001/api/v2/post/${String(post.id)}/click`;
   };
 
   return (

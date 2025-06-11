@@ -33,11 +33,3 @@ export const getSite = async (id: number) => {
   });
   return response.data;
 };
-
-export const getClick = async (id: number): Promise<void> => {
-  try {
-    await axios.get(`http://localhost:3001/api/v2/post/${String(id)}/click`);
-  } catch (error) {
-    throw error;
-  }
-};

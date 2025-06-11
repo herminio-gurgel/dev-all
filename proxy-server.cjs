@@ -1,11 +1,11 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const axios = require('axios');
+const express = require("express");
+const { createProxyMiddleware } = require("http-proxy-middleware");
+const axios = require("axios");
 
 const app = express();
 const PORT = 3001;
 
-app.get('/api/v2/post/:id/click', async (req, res) => {
+app.get("/api/v2/post/:id/click", async (req, res) => {
   const { id } = req.params;
   try {
     const response = await axios.get(
@@ -13,30 +13,30 @@ app.get('/api/v2/post/:id/click', async (req, res) => {
       {
         maxRedirects: 0,
         validateStatus: (status) => status >= 200 && status < 400,
-      }
+      },
     );
 
     const redirectUrl = response.headers.location;
     if (redirectUrl) {
       return res.redirect(302, redirectUrl);
     } else {
-      return res.status(404).send('URL de redirecionamento não encontrada');
+      return res.status(404).send("URL de redirecionamento não encontrada");
     }
   } catch (err) {
-    console.error('Erro no redirecionamento:', err.message);
-    return res.status(500).send('Erro ao buscar redirecionamento');
+    console.error("Erro no redirecionamento:", err.message);
+    return res.status(500).send("Erro ao buscar redirecionamento");
   }
 });
 
 app.use(
-  '/api',
+  "/api",
   createProxyMiddleware({
-    target: 'https://api.devall.com.br',
+    target: "https://api.devall.com.br",
     changeOrigin: true,
     pathRewrite: {
-      '^/api': '/api',
+      "^/api": "/api",
     },
-  })
+  }),
 );
 
 app.listen(PORT, () => {
