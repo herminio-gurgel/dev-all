@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
-import LateralContent from "../components/Shared/LateralContent";
+import LateralContent from "../components/LateralContent";
 
 const root = () => {
   return (

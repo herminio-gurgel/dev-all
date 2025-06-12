@@ -7,7 +7,7 @@ import Root from "./routes/root.tsx";
 import ErrorPage from "./routes/error-page.tsx";
 import Sources from "./routes/sources.tsx";
 import About from "./routes/about.tsx";
-import PostList from "./components/PostList/partials/PostList.tsx";
+import PostList from "./components/PostList/index.tsx";
 
 const rootElement = document.getElementById("root");
 

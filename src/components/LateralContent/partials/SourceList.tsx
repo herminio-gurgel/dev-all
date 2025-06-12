@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Source } from "../../../../types/Site";
-import { getSources } from "../../../../services/devallApi";
+import { Source } from "../../../types/Site";
+import { getSources } from "../../../services/devallApi";
 import styled from "styled-components";
-import BadRequest from "../../BadRequest";
+import BadRequest from "../../Shared/BadRequest";
 
 const StyledSourceList = styled.div`
   ul {
