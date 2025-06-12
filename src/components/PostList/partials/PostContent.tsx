@@ -47,7 +47,6 @@ const LoadedPost = ({ post }: { post: Post }) => {
     <StyledMediaContent className="media-content mb-5">
       <a
         href={`https://api.devall.com.br/api/v2/post/${String(post.id)}/click`}
-        target="_blank"
         rel="noopener noreferrer"
         className="title is-6 mb-0"
         onClick={handleClick}

@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { Post } from "../../../types/Post";
 import PostIcon from "./PostIcon";
 import PostContent from "./PostContent";
 import BadRequest from "../../Shared/BadRequest";
+import OpenInNewTab from "./OpenInNewTab";
 
 const StyledPostTemplate = styled.div`
   max-width: 765px;
@@ -55,12 +54,7 @@ const PostTemplate = ({ isLoading, post }: PostComponentProps) => {
           <PostContent isLoading={isLoading} post={post} />
         </div>
         <div className="media-right">
-          <button>
-            <FontAwesomeIcon
-              className={`${isLoading ? "is-skeleton" : ""} is-size-4`}
-              icon={faUpRightFromSquare}
-            />
-          </button>
+          <OpenInNewTab isLoading={isLoading} postID={post?.id} />
         </div>
       </div>
     </StyledPostTemplate>
