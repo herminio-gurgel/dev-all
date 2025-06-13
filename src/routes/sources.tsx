@@ -1,5 +1,7 @@
+import SourceList from "../components/SourceList";
+
 const sources = () => {
-  return <div>sources</div>;
+  return <SourceList />;
 };
 
 export default sources;

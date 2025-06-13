@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Post } from "../types/Post";
-import { Source } from "../types/Site";
+import { Source } from "../types/Source";
 
 const api = axios.create({
   baseURL: "https://api.devall.com.br/api/v2",
@@ -18,7 +18,9 @@ export const getPosts = async (params?: {
   }
 };
 
-export const getSources = async (params?: { name?: string }) => {
+export const getSources = async (params?: {
+  name?: string;
+}): Promise<Source[] | null> => {
   try {
     const response = await api.get<Source[]>("/sources", { params });
     return response.data;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Source } from "../../../types/Site";
+import { Source } from "../../../types/Source";
 import { getSources } from "../../../services/devallApi";
 import styled from "styled-components";
 import BadRequest from "../../Shared/BadRequest";
@@ -40,7 +40,7 @@ const SourceList = () => {
     const fetchSources = async () => {
       try {
         const data = await getSources();
-        setSources(data);
+        setSources(data ?? []);
         setError(false);
       } catch (err) {
         if (process.env.NODE_ENV === "development") {
