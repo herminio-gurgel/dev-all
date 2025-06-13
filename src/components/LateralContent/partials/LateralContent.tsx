@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SourceList from "./SourceList";
+import ExternalLink from "../../Shared/ExternalLink";
 
 const StyledLateralContent = styled.div<{ $isDark?: boolean }>`
   width: 300px;
@@ -20,21 +21,6 @@ const StyledLateralContent = styled.div<{ $isDark?: boolean }>`
   }
 `;
 
-const StyledSpan = styled.span`
-  [data-theme="dark"] & {
-    color: orange;
-    &:hover {
-      color: #ffd580;
-    }
-  }
-
-  [data-theme="light"] & {
-    &:hover {
-      color: #5c74ff;
-    }
-  }
-`;
-
 const LateralContent = () => {
   return (
     <>
@@ -47,9 +33,10 @@ const LateralContent = () => {
           Este é o <strong className="has-text-weight-bold">/dev/All</strong>: o
           agregador de sites que produzem conteúdo sobre desenvolvimento de
           software, mantido pela&nbsp;
-          <a href="https://www.itexto.com.br">
-            <StyledSpan>itexto Consultoria</StyledSpan>
-          </a>
+          <ExternalLink
+            content="itexto Consultoria"
+            href="https://www.itexto.com.br"
+          />
           !
         </p>
         <p>
@@ -60,11 +47,8 @@ const LateralContent = () => {
         <SourceList />
         <h2 className="is-size-5">Algum problema ou sugestão?</h2>
         <p>
-          Nos mande um{" "}
-          <a href="mailto:contato@itexto.com.br">
-            <StyledSpan>e-mail</StyledSpan>
-          </a>
-          !
+          Nos mande um&nbsp;
+          <ExternalLink content="e-mail" href="mailto:contato@itexto.com.br" />!
         </p>
       </StyledLateralContent>
     </>
