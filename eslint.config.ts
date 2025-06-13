@@ -25,6 +25,7 @@ export default tseslint.config(
       "babel.config.cjs",
       "src/__mocks__/**",
       "lint-staged.config.js",
+      "proxy-server.cjs",
     ],
   },
   {
