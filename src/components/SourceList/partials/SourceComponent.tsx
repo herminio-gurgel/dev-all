@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Source } from "../../../types/Source";
 import { faLink, faRss } from "@fortawesome/free-solid-svg-icons";
 import BadRequest from "../../Shared/BadRequest";
+import ExternalLink from "../../Shared/ExternalLink";
 
 interface SourceComponentProps {
   isLoading: boolean;
@@ -29,20 +30,23 @@ const SourceTemplate = ({ isLoading, source }: SourceComponentProps) => {
       <div className="media-content">
         <div className="content">
           <p>
-            <strong>{source?.name}</strong>
+            <ExternalLink content={source?.name} href={source?.url} />
             <br />
-            {source?.about}
           </p>
         </div>
         <nav className="level is-mobile">
           <div className="level-left">
-            <a className="level-item has-text-text">
-              <span className="icon is-small">
+            <a className={`level-item has-text-text`}>
+              <span
+                className={`icon is-small ${isLoading ? "is-skeleton" : ""}`}
+              >
                 <FontAwesomeIcon icon={faLink} />
               </span>
             </a>
             <a className="level-item has-text-text">
-              <span className="icon is-small">
+              <span
+                className={`icon is-small ${isLoading ? "is-skeleton" : ""}`}
+              >
                 <FontAwesomeIcon icon={faRss} />
               </span>
             </a>

@@ -16,8 +16,8 @@ const StyledSpan = styled.span`
 `;
 
 interface ExternalLinkProps {
-  content: string;
-  href: string;
+  content?: string;
+  href?: string;
 }
 
 const ExternalLink = ({ content, href }: ExternalLinkProps) => {
