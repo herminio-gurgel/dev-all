@@ -49,6 +49,12 @@ Rodar o servidor de desenvolvimento:
 npm run dev
 ```
 
+Rodar o proxy server:
+
+```bash
+node proxy-server.cjs
+```
+
 ## 🧪 Desafio Técnico - Frontend
 
 Desenvolver um cliente web que consuma a API pública [dev/All](https://devall.com.br)
@@ -101,3 +107,53 @@ Mesmo com muitas opções prontas, o Bulma deixa a desejar em alguns aspectos. A
 Os testes foram um ponto muito positivo na avaliação original, e resolvi manter o foco neles aqui. Escrevi testes que cobrem desde a renderização básica dos componentes até interações do usuário e verificação de estilos aplicados dinamicamente.
 
 Aqui usei o GitHub Copilot pela primeira vez e fiquei surpreso ao ver como ele estava bem integrado ao projeto. Ele chegou a sugerir testes automaticamente assim que eu importava um componente — mesmo que eu precisasse fazer alguns ajustes nas sugestões para adaptá-las ao meu código.
+
+### Avançando no desenvolvimento
+
+Ao implementar novos recursos e corrigir os tratamentos de erro e feedback ao usuário, enfrentei alguns desafios que não haviam surgido no desafio original — justamente por, na época, ter optado por uma solução sem tratamento de erros ou mensagens de retorno. Alguns desses desafios consegui resolver completamente, outros apenas parcialmente, e em alguns casos a própria API não fornecia os recursos necessários para resolver.
+
+#### CORS
+
+O que talvez fosse o ponto alto do desafio original — o endpoint de click — retornava erro de CORS ao fazer requisições via Axios. Com isso, aprendi a usar um servidor proxy para realizar a requisição pelo backend do projeto. Essa abordagem permitiu acessar o endpoint, registrar o clique e realizar o redirecionamento. No entanto, não consegui implementar um feedback satisfatório para o usuário em caso de falha. Tentei redirecionar para alguma rota do frontend exibindo a mensagem de erro, mas não consegui fazer isso funcionar corretamente. Talvez por falta de experiência com o Express, não consegui encontrar uma solução mais adequada do que simplesmente exibir uma página em branco com a mensagem de erro.
+
+#### Sources
+
+Esse ponto nem estava previsto no desafio original, mas ao implementar o site completo acabei me deparando com ele. Na versão original, era possível ver os últimos posts de cada site registrado, mas mesmo analisando as requisições feitas no navegador, não encontrei nenhuma pista de uma API pública sendo usada. Acredito que tenha sido utilizada alguma outra estratégia que desconheço. Neste caso, implementei apenas links diretos para os sites das fontes.
+
+#### React Router
+
+Utilizei uma implementação básica de roteamento no `client-side` com o React Router. O projeto mantém um layout persistente com a barra de navegação e a barra lateral, enquanto cada rota renderiza o componente correspondente.
+
+#### Estrutura do projeto
+
+A maior parte dos componentes do projeto segue a estrutura de pastas:
+
+```
+src
+├── components
+│   └── NomeDoComponente
+│       ├── __tests__/
+│       ├── partials/
+│       └── index.tsx
+
+```
+
+A pasta `__tests__` segue o padrão de nomenclatura usado com o Jest e contém os testes dos arquivos do respectivo componente.
+
+A pasta `partials` reúne os subcomponentes de forma mais isolada, com cada um focado em uma única responsabilidade.
+
+O arquivo `index.tsx` tem como função principal montar esses subcomponentes e gerenciar os estados com `useState`, repassando-os via props.
+
+Fora dessa estrutura, existem a pasta `Shared`, que contém componentes reutilizados em mais de um local, mas que não exigem uma estrutura mais elaboradae e a `About`, por se tratar basicamente de texto.
+
+### Desafios no frontend
+
+Sobre algumas soluções implementados e melhorias que posso fazer.
+
+#### Flexbox e posicionamento fixo.
+
+O `LateralContent` no original possui posicionamento fixo e altura de `100vh`, o que implementei parcialmente devido ao layout com barra de navegação superior. Isso gerou conflitos com o uso do Flexbox, então criei um componente `PlaceHolder` apenas para ocupar esse espaço e simular uma renderização mais próxima da original.
+
+#### Prop drilling e props opcionais.
+
+Duas situações que podem ser melhoradas no projeto todo. Em alguns componentes, como o `PostLinst` o `isLoading` é passado em 3 níveis via propdrilling, o que até pode estar no limite do aceitável. Mesmo que cada nível faça uso dessa prop, ainda posso separar melhor os componentes e usar a renderização condicional no arquivo de index. Isso resolveria esse e o uso de posts e post serem passados como props opcionais, por mais que a lógica garanta que eles sejam renderizados de forma correta o componente acaba tendo mais responsabilidades do que deveria ter e deixando a leitura um pouco menos simples do que poderia ser. Então nesse quesito várias melhorias podem ainda ser feitas no código.
