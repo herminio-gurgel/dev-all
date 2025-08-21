@@ -1,18 +1,23 @@
 import { render } from "@testing-library/react";
 import NavigationMenu from "../partials/NavigationMenu";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
+import React from "react";
 
 describe("NavigationMenu", () => {
   const mockToggleMenu = jest.fn();
+  const renderWithRouter = (ui: React.ReactElement) =>
+    render(<MemoryRouter>{ui}</MemoryRouter>);
+
   it("renders without crashing", () => {
-    const { container } = render(
+    const { container } = renderWithRouter(
       <NavigationMenu menuActive={false} toggleMenu={mockToggleMenu} />,
     );
     expect(container).toBeInTheDocument();
   });
 
   it("applies 'is-active' class when menuActive is true", () => {
-    const { container } = render(
+    const { container } = renderWithRouter(
       <NavigationMenu menuActive={true} toggleMenu={mockToggleMenu} />,
     );
     const navbarMenu = container.querySelector(".navbar-menu");
@@ -20,7 +25,7 @@ describe("NavigationMenu", () => {
   });
 
   it("does not apply 'is-active' class when menuActive is false", () => {
-    const { container } = render(
+    const { container } = renderWithRouter(
       <NavigationMenu menuActive={false} toggleMenu={mockToggleMenu} />,
     );
     const navbarMenu = container.querySelector(".navbar-menu");
@@ -28,7 +33,9 @@ describe("NavigationMenu", () => {
   });
 
   it("closes the menu when the user clicks outside the menu", async () => {
-    render(<NavigationMenu menuActive={true} toggleMenu={mockToggleMenu} />);
+    renderWithRouter(
+      <NavigationMenu menuActive={true} toggleMenu={mockToggleMenu} />,
+    );
     const outsideClick = document.createElement("div");
     outsideClick.textContent = "Click outside";
     document.body.appendChild(outsideClick);
